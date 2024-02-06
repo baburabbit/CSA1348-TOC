@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <string.h>
+
+// Function to check whether a given string belongs to the CFG
+int isMember(char str[], int i, int j) {
+    if (i > j) {
+        return 1; // String is empty, ε is accepted
+    }
+
+    // Rule S -> 0S1
+    if (str[i] == '0' && str[j] == '1') {
+        return isMember(str, i + 1, j - 1);
+    }
+
+    return 0; // Not part of the CFG
+}
+
+int main() {
+    char str[100];
+    printf("Enter a string: ");
+    scanf("%s", str);
+
+    if (isMember(str, 0, strlen(str) - 1)) {
+        printf("The string belongs to the language defined by the CFG.\n");
+    } else {
+        printf("The string does not belong to the language defined by the CFG.\n");
+    }
+
+    return 0;
+}
